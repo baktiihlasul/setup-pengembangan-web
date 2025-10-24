@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ETechStore - Node.js Version
 
 ETechStore adalah platform e-commerce untuk menjual berbagai part PC original dan bergaransi. Aplikasi ini telah dikonversi dari PHP ke Node.js menggunakan Express.js framework.
@@ -164,3 +165,19 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ETechStore - [@etechstore](https://twitter.com/etechstore)
 
 Project Link: [https://github.com/etechstore/etechstore-nodejs](https://github.com/etechstore/etechstore-nodejs)
+=======
+Srtuktur Folder
+
+
+
+
+
+<img width="598" height="1036" alt="image" src="https://github.com/user-attachments/assets/06eb18b5-ea4a-4229-931f-be8ac3f5d5e9" />
+
+
+
+
+
+Database
+<img width="1912" height="435" alt="image" src="https://github.com/user-attachments/assets/e69301b3-8b3e-4c57-b7bb-4a1521a55bee" />
+>>>>>>> 65fdc413ba127cc0276728bff8fc98ee9c8f536c
