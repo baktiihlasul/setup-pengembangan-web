@@ -1,0 +1,53 @@
+<%- include('layout', { title: title }) %>
+
+<div class="product-detail">
+    <div class="product-image">
+        <img src="/img/<%= product.gambar %>" alt="<%= product.nama_produk %>">
+    </div>
+    <div class="product-info">
+        <h1><%= product.nama_produk %></h1>
+        <p class="product-category">Kategori: <%= product.kategori %></p>
+        <p class="product-price">Rp <%= product.harga.toLocaleString('id-ID') %></p>
+        <div class="product-description">
+            <h3>Deskripsi</h3>
+            <p><%= product.deskripsi || 'Tidak ada deskripsi tersedia.' %></p>
+        </div>
+        <button class="btn-add-cart" data-product-id="<%= product.id %>">Tambahkan ke Keranjang</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addToCartButton = document.querySelector('.btn-add-cart');
+    
+    addToCartButton.addEventListener('click', function() {
+        const productId = this.getAttribute('data-product-id');
+        
+        fetch('/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                productId: productId,
+                quantity: 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+            } else {
+                alert(data.message);
+                if (data.message.includes('login')) {
+                    window.location.href = '/auth/login';
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan');
+        });
+    });
+});
+</script>

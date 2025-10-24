@@ -1,0 +1,66 @@
+<div class="hero">
+    <h2>Bangun PC impianmu hanya di <span>ETechStore</span></h2>
+    <p>Temukan berbagai part PC original dan bergaransi.</p>
+</div>
+
+<div class="kategori">
+    <h3>Kategori</h3>
+    <div class="kategori-list">
+        <a href="/product/category/Fan" class="btn-category">Fan</a>
+        <a href="/product/category/Motherboard" class="btn-category">Motherboard</a>
+        <a href="/product/category/RAM" class="btn-category">RAM</a>
+        <a href="/product/category/VGA Card" class="btn-category">VGA Card</a>
+    </div>
+</div>
+
+<div class="produk-unggulan">
+    <h3>Produk Unggulan</h3>
+    <div class="produk-grid">
+        <% products.forEach(product => { %>
+        <div class="produk">
+            <img src="/img/<%= product.gambar %>" alt="<%= product.nama_produk %>">
+            <h4><%= product.nama_produk %></h4>
+            <p>Rp <%= product.harga.toLocaleString('id-ID') %></p>
+            <button class="btn-add-cart" data-product-id="<%= product.id %>">Tambahkan ke Troli</button>
+        </div>
+        <% }); %>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addToCartButtons = document.querySelectorAll('.btn-add-cart');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            
+            fetch('/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: 1
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                    if (data.message.includes('login')) {
+                        window.location.href = '/auth/login';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan');
+            });
+        });
+    });
+});
+</script>

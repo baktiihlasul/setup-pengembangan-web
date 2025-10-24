@@ -1,0 +1,26 @@
+<%- include('layout', { title: title }) %>
+
+<div class="auth-container">
+    <div class="auth-form">
+        <img src="/img/logo.png" alt="logo" class="logo">
+        <h2>Register</h2>
+        
+        <% if (error && error.length > 0) { %>
+            <div class="alert alert-error"><%= error %></div>
+        <% } %>
+        
+        <% if (success && success.length > 0) { %>
+            <div class="alert alert-success"><%= success %></div>
+        <% } %>
+        
+        <form action="/auth/register" method="POST">
+            <input type="text" name="nama" placeholder="Nama Lengkap" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirmPassword" placeholder="Konfirmasi Password" required>
+            <button type="submit" name="register">Daftar</button>
+        </form>
+        
+        <p>Sudah punya akun? <a href="/auth/login">Login di sini</a></p>
+    </div>
+</div>

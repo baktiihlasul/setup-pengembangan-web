@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-brand">
+                <h2>ETechStore</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="/">Home</a>
+                <a href="/product/category/Fan">Fan</a>
+                <a href="/product/category/Motherboard">Motherboard</a>
+                <a href="/product/category/RAM">RAM</a>
+                <a href="/product/category/VGA Card">VGA Card</a>
+            </div>
+            <div class="nav-auth">
+                <% if (locals.user) { %>
+                    <span>Halo, <%= locals.user.nama %></span>
+                    <a href="/cart">Keranjang</a>
+                    <a href="/auth/logout">Logout</a>
+                <% } else { %>
+                    <a href="/auth/login">Login</a>
+                    <a href="/auth/register">Register</a>
+                <% } %>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <%- include(content) %>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <h3>ETechStore</h3>
+            <p>Bangun PC impianmu hanya di ETechStore</p>
+            <p>&copy; 2024 ETechStore. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

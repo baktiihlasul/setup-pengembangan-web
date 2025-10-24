@@ -1,0 +1,63 @@
+<%- include('layout', { title: title }) %>
+
+<div class="cart-container">
+    <h2>Keranjang Belanja</h2>
+    
+    <% if (cartItems.length === 0) { %>
+        <div class="empty-cart">
+            <p>Keranjang Anda kosong</p>
+            <a href="/" class="btn-primary">Mulai Belanja</a>
+        </div>
+    <% } else { %>
+        <div class="cart-items">
+            <% cartItems.forEach(item => { %>
+            <div class="cart-item">
+                <img src="/img/<%= item.gambar %>" alt="<%= item.nama_produk %>">
+                <div class="item-details">
+                    <h4><%= item.nama_produk %></h4>
+                    <p>Rp <%= item.harga.toLocaleString('id-ID') %></p>
+                    <p>Jumlah: <%= item.jumlah %></p>
+                </div>
+                <div class="item-actions">
+                    <button class="btn-remove" data-cart-id="<%= item.id %>">Hapus</button>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+        
+        <div class="cart-summary">
+            <h3>Total: Rp <%= cartItems.reduce((total, item) => total + (item.harga * item.jumlah), 0).toLocaleString('id-ID') %></h3>
+            <button class="btn-checkout">Checkout</button>
+        </div>
+    <% } %>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const removeButtons = document.querySelectorAll('.btn-remove');
+    
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const cartId = this.getAttribute('data-cart-id');
+            
+            if (confirm('Apakah Anda yakin ingin menghapus item ini?')) {
+                fetch(`/cart/remove/${cartId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan');
+                });
+            }
+        });
+    });
+});
+</script>
